@@ -2,7 +2,7 @@
 
 The Klipper configuration for the Voron 2.4 I built. It runs on an STM32H723 mainboard with an EBB toolhead board over CAN bus.
 
-> 📸 *Add a photo of the printer here: `docs/printer.jpg`*
+<p align="center"><img src="docs/printer.jpg" width="48%" alt="Voron 2.4 printer"> <img src="docs/toolhead.jpg" width="48%" alt="Voron toolhead"></p>
 
 ![Hotend wiring](docs/hotend-wiring.jpg)
 
