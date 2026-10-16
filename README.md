@@ -10,8 +10,9 @@ The Klipper configuration for the Voron 2.4 I built. It runs on an STM32H723 mai
 
 | Folder | What it is |
 |---|---|
-| `config/` | The original setup: a piezo nozzle probe, four-motor Z with quad gantry leveling, and KAMP adaptive meshing and purging, plus a custom thermistor table for the T-D500 hotend |
-| `eddy-rebuild/` | The upgrade to a **BTT Eddy Duo** eddy-current probe, with a step-by-step commissioning runbook |
+| `config/` | **The live config, exactly as it is on the printer** (synced Oct 2026): BTT Eddy Duo for Z homing, quad gantry leveling and bed mesh, four-motor Z, KAMP line purge and smart park, a gantry-mounted nozzle brush with load/unload/wipe macros, and a BTT mini12864 display |
+| `eddy-rebuild/` | The August 2026 upgrade package that added the Eddy, with the step-by-step commissioning runbook |
+| `archive/` | Files no longer on the printer (the T-D500 thermistor table from before the Revo hotend) |
 
 ## The interesting problem
 
@@ -19,8 +20,10 @@ I wanted to keep the piezo for Z homing *and* add the Eddy for fast leveling and
 
 The solution was to demote the piezo to a plain `[stepper_z] endstop_pin`. It's still the same active-low trigger on the toolhead board, but now it homes Z as an endstop. The Eddy takes over the `probe` role for quad gantry leveling and bed meshing.
 
+**Update (Aug 17, 2026):** in practice the piezo kept false-triggering in mid-air, so I removed it. The Eddy now homes Z too (`endstop_pin: probe:z_virtual_endstop`), and `PRINT_START` loads a saved bed mesh instead of scanning before every print. Comments in `config/` that still describe the piezo are left in as history.
+
 ## Credits
 
-- Adaptive meshing, line purge, smart park and Voron purge macros come from [KAMP](https://github.com/kyleisah/Klipper-Adaptive-Meshing-Purging) (GPL-3.0).
+- The files in `config/KAMP/` (adaptive meshing, line purge, smart park and Voron purge) come from [KAMP](https://github.com/kyleisah/Klipper-Adaptive-Meshing-Purging) (GPL-3.0).
 - `mainsail.cfg` and `timelapse.cfg` come from the Mainsail and moonraker-timelapse projects.
 - The Eddy runbook was written with help from Claude (AI).
